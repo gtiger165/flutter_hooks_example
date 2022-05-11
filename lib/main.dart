@@ -1,8 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_hooks_example/controllers/auth_controller.dart';
+import 'package:flutter_hooks_example/firebase_options.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,22 +20,28 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Hooks Home Page'),
+      home: const HomeScreen(),
     );
   }
 }
 
-class MyHomePage extends HookWidget {
-  final String? title;
-
-  const MyHomePage({Key? key, this.title}) : super(key: key);
+class HomeScreen extends HookConsumerWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final _counter = useState(0);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _authControllerState =
+        ref.watch(authControllerProvider.notifier).state;
     return Scaffold(
       appBar: AppBar(
-        title: Text(title.toString()),
+        title: Text("Shopping List"),
+        leading: _authControllerState != null
+            ? IconButton(
+                onPressed: () =>
+                    ref.read(authControllerProvider.notifier).signOut(),
+                icon: Icon(Icons.logout),
+              )
+            : null,
       ),
       body: Center(
         child: Column(
@@ -39,17 +50,8 @@ class MyHomePage extends HookWidget {
             const Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '${_counter.value}',
-              style: Theme.of(context).textTheme.headline4,
-            ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _counter.value++,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "460108735206",
+    "project_id": "flutter-riverpod-sample",
+    "storage_bucket": "flutter-riverpod-sample.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460108735206:android:863195d337a761193d1127",
+        "android_client_info": {
+          "package_name": "com.example.flutter_hooks_example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460108735206-hp9779bmq5h4vkaeoblhdc37s79sfl10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzg-23q-_6B2ZThqlNHHMnYKcPELevm8E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460108735206-hp9779bmq5h4vkaeoblhdc37s79sfl10.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "460108735206-p24suqad5fg2b2elr4iefo0e1kl7cmor.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterHooksExample"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
