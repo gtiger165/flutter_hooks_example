@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks_example/controllers/auth_controller.dart';
 import 'package:flutter_hooks_example/models/item_model.dart';
 import 'package:flutter_hooks_example/repositories/custom_exception.dart';
@@ -9,6 +10,7 @@ final itemListExceptionProvider = StateProvider<CustomException?>((_) => null);
 final itemListControllerProvider =
     StateNotifierProvider<ItemListController, AsyncValue<List<Item>>>((ref) {
   final user = ref.watch(authControllerProvider.notifier).state;
+  debugPrint("state notifier -> $user");
   return ItemListController(ref.read, user?.uid);
 });
 
@@ -17,6 +19,7 @@ class ItemListController extends StateNotifier<AsyncValue<List<Item>>> {
   final String? _userId;
 
   ItemListController(this._read, this._userId) : super(AsyncValue.loading()) {
+    debugPrint("item list controller uid -> $_userId");
     if (_userId != null) {
       retrieveItems();
     }
