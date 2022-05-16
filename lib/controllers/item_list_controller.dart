@@ -9,7 +9,7 @@ final itemListExceptionProvider = StateProvider<CustomException?>((_) => null);
 
 final itemListControllerProvider =
     StateNotifierProvider<ItemListController, AsyncValue<List<Item>>>((ref) {
-  final user = ref.watch(authControllerProvider.notifier).state;
+  final user = ref.watch(authControllerProvider);
   debugPrint("state notifier -> $user");
   return ItemListController(ref.read, user?.uid);
 });
@@ -28,8 +28,8 @@ class ItemListController extends StateNotifier<AsyncValue<List<Item>>> {
   Future<void> retrieveItems({bool isRefreshing = false}) async {
     if (isRefreshing) state = AsyncValue.loading();
     try {
-      final items =
-          await _read(itemRepositoryProvider).retriveItems(userId: _userId!);
+      final items = await _read(itemRepositoryProvider)
+          .retriveItems(userId: _userId ?? "");
 
       if (mounted) state = AsyncValue.data(items);
     } on CustomException catch (e) {

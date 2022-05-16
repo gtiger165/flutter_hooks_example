@@ -13,7 +13,7 @@ class ItemList extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final itemListState = ref.watch(itemListControllerProvider.notifier).state;
+    final itemListState = ref.watch(itemListControllerProvider);
 
     return itemListState.when(
       data: (items) {
@@ -27,6 +27,7 @@ class ItemList extends HookConsumerWidget {
                 ),
               )
             : ListView.builder(
+                itemCount: items.length,
                 itemBuilder: (context, index) {
                   final item = items[index];
                   return ProviderScope(
